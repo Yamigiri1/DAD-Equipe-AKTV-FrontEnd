@@ -1,9 +1,11 @@
 import React from "react";
-import appLogo from "../assets/icons/app_logo.png";
-import commentLogo from "../assets/icons/comment.png";
-import likeLogo from "../assets/icons/like.png";
+import appLogo from "../../assets/icons/app_logo.png";
+import commentLogo from "../../assets/icons/comment.png";
+import likeLogo from "../../assets/icons/like.png";
+import { Link } from "react-router-dom";
 
-export default function Post({username, content, timestamp, nbLikes, nbComments}) {
+export default function Post({id, username, content, timestamp, nbLikes, nbComments}) {
+  console.log("Post component rendered with id:", id);
   return (
     <div style={styles.post}>
       <div style={styles.header}>
@@ -18,14 +20,14 @@ export default function Post({username, content, timestamp, nbLikes, nbComments}
       </div>
       <div style={styles.content}>{content}</div>
       <div style={styles.actions}>
-        <div style={styles.action}>
+        <Link style={styles.action} >
             <img src={likeLogo} alt="Profil" style={styles.actionButton} />
             <p>{nbLikes}</p>
-        </div>
-        <div style={styles.action}>
+        </Link>
+        <Link style={styles.action} to={`/comments/` + id}>
             <img src={commentLogo} alt="Profil" style={styles.actionButton} />
             <p>{nbComments}</p>
-        </div>
+        </Link>
       </div>
     </div>
   );

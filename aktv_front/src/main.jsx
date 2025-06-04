@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
 import App from './pages/App';
 import Home from './pages/Home';
+import Comments from './pages/Comments';
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from './RootLayout';
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {path: '/', element: <Home />},
+      {path: '/comments/:id', element: <Comments />},
       {path: '/search', element: <div>Search Page</div>},
       {path: '/profil/:id', element: <div>Profile Page</div>},
       {path: '/notifications', element: <div>Notifications Page</div>},

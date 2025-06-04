@@ -1,16 +1,15 @@
 // components/Navbar.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import homeIcon from "../assets/icons/home.png";
-import notifIcon from "../assets/icons/notifications.png";
-import messIcon from "../assets/icons/messages.png";
-import profileIcon from "../assets/icons/profil.png";
-import homeIconSelected from "../assets/icons/home_selected.png";
-import notifIconSelected from "../assets/icons/notifications_selected.png";
+import homeIcon from "../../assets/icons/home.png";
+import notifIcon from "../../assets/icons/notifications.png";
+import profileIcon from "../../assets/icons/profil.png";
+import homeIconSelected from "../../assets/icons/home_selected.png";
+import notifIconSelected from "../../assets/icons/notifications_selected.png";
 // import messIconSelected from "../assets/icons/messages_selected.png";
-import profileIconSelected from "../assets/icons/profil_selected.png";
-import searchIconSelected from "../assets/icons/search_selected.png";
-import searchIcon from "../assets/icons/search.png";
+import profileIconSelected from "../../assets/icons/profil_selected.png";
+import searchIconSelected from "../../assets/icons/search_selected.png";
+import searchIcon from "../../assets/icons/search.png";
 
 export default function Navbar() {
   const location = useLocation();

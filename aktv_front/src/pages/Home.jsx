@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Post from "../components/Post.jsx";
+import Post from "../components/Post/Post.jsx";
 
 export default function Home() {
   const [posts, setPosts] = useState([
@@ -55,16 +55,17 @@ export default function Home() {
     },
     
   ]);
-
   return (
     <div style={styles.feedContainer}>
     <div style={styles.feedHeader}>
         <h1 style={styles.feedTitle}>Bienvenue sur AKTV</h1>
     </div>
       <div style={styles.feedPosts}>
-        {posts.map((post) => (
+        {
+        posts.map((post) => (
           <Post
             key={post.id}
+            id={post.id}
             username={post.username}
             avatar={post.avatar}
             content={post.content}
@@ -87,6 +88,7 @@ const styles = {
     backgroundColor: "#121212",
     minHeight: "100vh",
     color: "#f5f5f5",
+    marginBottom: "4em"
   },
   feedTitle: {
     fontSize: "24px",
