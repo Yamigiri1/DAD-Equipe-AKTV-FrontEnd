@@ -1,0 +1,64 @@
+// services/postService.js
+import axios from 'axios';
+
+class PostService {
+  
+  API_BASE_URL = 'https://localhost'; // Remplacez par l'URL de votre API
+  
+  // Récupérer tous les posts
+  async getAllPosts() {
+    try {
+      const response = await axios.get(`${this.API_BASE_URL}/posts`);
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des posts:', error);
+      throw error;
+    }
+  }
+
+  // Créer un nouveau post
+  async createPost(postData) {
+    try {
+      const response = await axios.post(`${this.API_BASE_URL}/posts`, postData);
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la création du post:', error);
+      throw error;
+    }
+  }
+
+  // Récupérer un post par ID
+  async getPostById(id) {
+    try {
+      const response = await axios.get(`${this.API_BASE_URL}/posts/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération du post:', error);
+      throw error;
+    }
+  }
+
+  // Mettre à jour un post
+  async updatePost(id, postData) {
+    try {
+      const response = await axios.put(`${this.API_BASE_URL}/posts/${id}`, postData);
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du post:', error);
+      throw error;
+    }
+  }
+
+  // Supprimer un post
+  async deletePost(id) {
+    try {
+      await axios.delete(`${this.API_BASE_URL}/posts/${id}`);
+      return true;
+    } catch (error) {
+      console.error('Erreur lors de la suppression du post:', error);
+      throw error;
+    }
+  }
+}
+
+export default new PostService();

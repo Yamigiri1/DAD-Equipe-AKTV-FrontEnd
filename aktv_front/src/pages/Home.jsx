@@ -1,64 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Post from "../components/Post/Post.jsx";
+import CreatePost from "../components/Post/CreatePost.jsx";
+import PostService from "../services/PostService.js";
 
 export default function Home() {
-  const [posts, setPosts] = useState([
-    {
-        id: 1,
-        username: "alice42",
-        avatar: "https://i.pravatar.cc/40?img=1",
-        content: "J'adore coder en React ⚛️ !",
-        image: "https://picsum.photos/seed/react/400/200",
-        timestamp: "il y a 1 heure",
-        nbLikes: 120,
-        nbComments: 45,
-    },
-    {
-        id: 2,
-        username: "bob_dev",
-        avatar: "https://i.pravatar.cc/40?img=5",
-        content: "Premier test avec Vite, c’est ultra rapide ! 🚀",
-        image: "https://picsum.photos/seed/vite/400/200",
-        timestamp: "il y a 3 heures",
-        nbLikes: 85,
-        nbComments: 20,
-    },
-    {
-        id: 3,
-        username: "charlie_code",
-        avatar: "https://i.pravatar.cc/40?img=7",
-        content: "Quel est votre framework front préféré ? 🤔",
-        image: null,
-        timestamp: "il y a 5 minutes",
-        nbLikes: 60,
-        nbComments: 10,
-    },
-    {
-        id: 4,
-        username: "david_tech",
-        avatar: "https://i.pravatar.cc/40?img=3",
-        content: "J’ai découvert une nouvelle librairie JS géniale !",
-        image: "https://picsum.photos/seed/js/400/200",
-        timestamp: "il y a 2 jours",
-        nbLikes: 200,
-        nbComments: 75,
-    },
-    {
-        id: 5,
-        username: "eve_design",
-        avatar: "https://i.pravatar.cc/40?img=9",
-        content: "Le design est aussi important que le code ! 🎨",
-        image: null,
-        timestamp: "il y a 1 jour",
-        nbLikes: 150,
-        nbComments: 30,
-    },
-    
-  ]);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    PostService.getAllPosts().then((data) => {
+      setPosts(data);
+      // setPosts(data); // Uncomment this line to use real data from the API
+    }).catch((error) => {
+      console.error("Erreur lors de la récupération des posts:", error);
+    });
+    document.title = "AKTV - Feed";
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div style={styles.feedContainer}>
+          <CreatePost />
     <div style={styles.feedHeader}>
-        <h1 style={styles.feedTitle}>Bienvenue sur AKTV</h1>
+        <h1 style={styles.feedTitle}>Votre actualité</h1>
     </div>
       <div style={styles.feedPosts}>
         {
@@ -66,13 +27,13 @@ export default function Home() {
           <Post
             key={post.id}
             id={post.id}
-            username={post.username}
-            avatar={post.avatar}
+            username={"factice"}//post.username
+            avatar={"factice"}//post.avatar
             content={post.content}
-            image={post.image}
-            timestamp={post.timestamp}
-            nbLikes={post.nbLikes}
-            nbComments={post.nbComments}
+            image={"factice"}//post.image
+            timestamp={post.created_at}
+            nbLikes={10}//post.nbLikes
+            nbComments={10}//post.nbComments
           />
         ))}
       </div>

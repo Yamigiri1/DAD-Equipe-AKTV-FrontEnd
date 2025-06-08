@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import appLogo from "../../assets/icons/app_logo.png";
 import commentLogo from "../../assets/icons/comment.png";
 import likeLogo from "../../assets/icons/like.png";
 import "./Comment.css"
 import { useState } from "react";
+import {formatTimestamp} from "../../utils.js"; // Assuming you have a utility function to format timestamps
 
 function handleDeployResponse(isResponseVisible, setIsResponseVisible) 
 {
@@ -20,7 +21,7 @@ export default function Comment({ username, content, timestamp, nbLikes, respons
         <img src={appLogo} alt="avatar" className="avatar" />
         <div className="userInfo">
           <div className="username">{username}</div>
-          <div className="timestamp">{timestamp}</div>
+          <div className="timestamp">{formatTimestamp(timestamp)}</div>
         </div>
       </div>
       <div className="content">{content}</div>

@@ -1,0 +1,224 @@
+/* Post Component Styles */
+.post {
+  border: 1px solid #38444d;
+  border-radius: 16px;
+  padding: 16px 20px;
+  background-color:   #1e1e1e;;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  max-width: 600px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.post:hover {
+  background-color: #2a2a2a;
+  border-color: #4a5568;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(72, 85, 104, 0.5);
+  flex-shrink: 0;
+}
+
+.post-user-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: flex-start;
+}
+
+.post-username {
+  font-weight: 700;
+  font-size: 15px;
+  color: #ffffff;
+  margin-bottom: 2px;
+  line-height: 1.2;
+}
+
+.post-timestamp {
+  font-size: 14px;
+  color: #8b949e;
+  line-height: 1.2;
+}
+
+.post-content {
+  font-size: 15px;
+  line-height: 1.4;
+  color: #ffffff;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.post-content:last-of-type {
+  margin-bottom: 16px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 48px;
+  margin-top: 8px;
+}
+
+.post-action {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #8b949e;
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.post-action:hover {
+  background-color: rgba(29, 155, 240, 0.15);
+  color: #58a6ff;
+}
+
+/* Action spécifique pour les likes */
+.post-action.like-action:hover {
+  background-color: rgba(249, 24, 128, 0.15);
+  color: #ff6b9d;
+}
+
+.post-action.like-action:hover:visited {
+  color: #ff6b9d;
+}
+
+.post-action-button {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.post-action:hover .post-action-button {
+  opacity: 1;
+}
+
+.post-action p {
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .post {
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+
+  .post-avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+
+  .post-username {
+    font-size: 14px;
+  }
+
+  .post-timestamp {
+    font-size: 13px;
+  }
+
+  .post-content {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .post-actions {
+    gap: 32px;
+  }
+
+  .post-action {
+    padding: 6px 8px;
+  }
+
+  .post-action-button {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  .post-action p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-actions {
+    gap: 24px;
+  }
+
+  .post-action {
+    padding: 4px 6px;
+  }
+}
+
+/* États actifs pour les actions */
+.post-action.active {
+  color: #58a6ff;
+}
+
+.post-action.like-action.active {
+  color: #ff6b9d;
+}
+
+/* Animation pour les nouvelles publications */
+@keyframes slideInPost {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post.new-post {
+  animation: slideInPost 0.4s ease-out;
+}
+
+/* Focus states pour l'accessibilité */
+.post:focus-within {
+  outline: 2px solid #58a6ff;
+  outline-offset: 2px;
+}
+
+.post-action:focus {
+  outline: 2px solid #58a6ff;
+  outline-offset: 2px;
+  outline-style: solid;
+}
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .post,
+  .post-action,
+  .post-action-button {
+    transition: none;
+    animation: none;
+  }
+}
