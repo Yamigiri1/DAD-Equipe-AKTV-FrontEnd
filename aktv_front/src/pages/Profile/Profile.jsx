@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import HeaderProfile from '../../components/Profile/HeaderProfile';
 import appLogo from "../../assets/icons/app_logo.png";
-import banner from "../../assets/icons/banner.png";
+import banner from "../../assets/img/banner.png";
 import './Profile.css'; 
 
 export default function Profile() {
