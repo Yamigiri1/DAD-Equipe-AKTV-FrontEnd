@@ -8,6 +8,7 @@ import Comments from './pages/Comments';
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RootLayout from './RootLayout';
+import Profile from './pages/Profile/Profile';
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
       {path: '/', element: <Home />},
       {path: '/comments/:id', element: <Comments />},
       {path: '/search', element: <div>Search Page</div>},
-      {path: '/profil/:id', element: <div>Profile Page</div>},
+      {path: '/profile/:userId', element: <Profile />},
       {path: '/notifications', element: <div>Notifications Page</div>},
       {path : '/messages', element: <div>Messages Page</div>},
       {path: '/settings', element: <div>Settings Page</div>},

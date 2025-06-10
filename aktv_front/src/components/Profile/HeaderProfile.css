@@ -1,0 +1,233 @@
+
+/* HeaderProfile.css */
+.header-profile-container {
+  position: relative;
+  background-color: #000;
+  color: #ffffff;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.header-banner {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #434343 0%, #000000 100%);
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="0.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1.5" fill="rgba(255,255,255,0.05)"/></svg>');
+  position: relative;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #000;
+  position: absolute;
+  top: 140px;
+  left: 20px;
+  object-fit: cover;
+  background-color: #1a1a1a;
+}
+
+.profile-info {
+  padding: 80px 20px 20px 20px;
+  background-color: #000;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.profile-bio {
+  font-size: 15px;
+  color: #e7e9ea;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+  max-width: 500px;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.profile-followers,
+.profile-following {
+  font-size: 14px;
+  color: #71767b;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.profile-followers:hover,
+.profile-following:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.profile-followers strong,
+.profile-following strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Alternative avec les nombres en blanc */
+.profile-followers::before {
+  content: attr(data-count);
+  color: #ffffff;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.profile-following::before {
+  content: attr(data-count);
+  color: #ffffff;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* Action buttons area (for future buttons like Follow, Message, etc.) */
+.profile-actions {
+  position: absolute;
+  top: 210px;
+  right: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.action-button {
+  background-color: transparent;
+  border: 1px solid #536471;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #1a1a1a;
+  border-color: #71767b;
+}
+
+.action-button.primary {
+  background-color: #1d9bf0;
+  border-color: #1d9bf0;
+}
+
+.action-button.primary:hover {
+  background-color: #1a8cd8;
+  border-color: #1a8cd8;
+}
+
+/* Joined date styling */
+.profile-joined {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #71767b;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.profile-joined::before {
+  content: "📅";
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .header-banner {
+    height: 150px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    top: 110px;
+    left: 16px;
+  }
+
+  .profile-info {
+    padding: 50px 16px 16px 16px;
+  }
+
+  .profile-name {
+    font-size: 20px;
+  }
+
+  .profile-bio {
+    font-size: 14px;
+  }
+
+  .profile-stats {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .profile-actions {
+    top: 160px;
+    right: 16px;
+  }
+
+  .action-button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-banner {
+    height: 120px;
+  }
+
+  .profile-avatar {
+    width: 68px;
+    height: 68px;
+    top: 85px;
+  }
+
+  .profile-info {
+    padding: 40px 12px 12px 12px;
+  }
+
+  .profile-actions {
+    top: 130px;
+    right: 12px;
+  }
+}
+
+/* Animation pour l'apparition */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header-profile-container {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Accessibilité */
+@media (prefers-reduced-motion: reduce) {
+  .header-profile-container,
+  .action-button,
+  .profile-followers,
+  .profile-following {
+    animation: none;
+    transition: none;
+  }
+}
