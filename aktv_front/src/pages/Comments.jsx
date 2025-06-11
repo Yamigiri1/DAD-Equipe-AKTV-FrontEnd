@@ -13,8 +13,6 @@ export default function Comments()
     useEffect(() => {   
         document.title = "Comments - AKTV";
         window.scrollTo(0, 0);
-        //récupérer le post et les commentaires depuis l'API
-        //Pour l'instant on simule les données
         setComments([{
         id: 1,
         username: "comments alice42",
