@@ -2,9 +2,9 @@ import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css'
-import Authentication from './pages/Auth/Authentication'
-import Login from './pages/Auth/Login'
-import Register from './pages/Auth/Register'
+import Authentication from './pages/Auth/Authentication/Authentication.jsx'
+import Login from './pages/Auth/Login/Login.jsx'
+import Register from './pages/Auth/Register/Register.jsx'
 import App from './pages/App';
 import Home from './pages/Home';
 import Comments from './pages/Comments';
