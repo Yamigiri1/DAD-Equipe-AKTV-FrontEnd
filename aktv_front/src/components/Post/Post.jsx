@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import "./Post.css";
 import { formatTimestamp } from "../../utils";
 export default function Post({id, username, content, timestamp, nbLikes, nbComments}) {
-
+  useEffect(()=>{
+    
+  }, [])
   return (
     <div className="post">
       <div className="post-header">
