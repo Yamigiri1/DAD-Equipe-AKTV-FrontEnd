@@ -21,7 +21,7 @@ export default function Post({id, username, content, timestamp, nbLikes, nbComme
       <div className="post-content">{content}</div>
       <div className="post-actions">
         <Link className="post-action like-action">
-            <img src={likeLogo} alt="Like" className="post-action-button" />
+            <img src={likeLogo}  alt="Like" className="post-action-button" />
             <p>{nbLikes}</p>
         </Link>
         <Link className="post-action" to={`/comments/` + id}>
