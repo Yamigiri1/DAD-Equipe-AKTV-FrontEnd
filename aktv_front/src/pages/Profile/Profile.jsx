@@ -10,6 +10,8 @@ import userService from "../../services/UserService";
 
 export default function Profile() {
     const { username } = useParams();
+    const [loading, setLoading] = useState(true); // Pour le chargement initial
+    const [error, setError] = useState("");
     console.log("Username from params:", username);
 
     //pavid api : http://localhost:3000/api/users/getUserByUsername/${username}
@@ -26,7 +28,7 @@ export default function Profile() {
         const fetchProfile = async () => {
             try {
                 let user;
-
+                console.log("Fetching profile for username:", username);
                 if (!username || username.trim() === "") {
                     // Récupérer l'utilisateur courant
                     user = await userService.getCurrentUser();

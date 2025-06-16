@@ -18,7 +18,7 @@ class UserService {
   // Obtenir l'utilisateur courant
   async getCurrentUser() {
     try {
-      const response = await axios.get(`${this.API_BASE_URL}/users/currentuser`, { withCredentials: true });
+      const response = await axios.get(`${this.API_BASE_URL}/users/currentUser`, { withCredentials: true });
       return response.data;
     } catch (error) {
       console.error(`Erreur lors de la récupération de l'utilisateur courant :`, error);
