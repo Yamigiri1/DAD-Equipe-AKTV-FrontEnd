@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.link}><img src={location.pathname === "/" ? homeIconSelected : homeIcon} alt="Fil" style={styles.icon} /></Link>
-      <Link to="/my-profile" style={styles.link}><img src={location.pathname.startsWith("/my-profile")  ? profileIconSelected : profileIcon} alt="Fil" style={styles.icon} /></Link>
+      <Link to="/profile" style={styles.link}><img src={location.pathname.startsWith("/my-profile")  ? profileIconSelected : profileIcon} alt="Fil" style={styles.icon} /></Link>
       <Link to="/notifications" style={styles.link}><img src={location.pathname.startsWith("/notifications")  ? notifIconSelected : notifIcon} alt="Notification" style={styles.icon} /></Link>
       <Link to="/search" style={styles.link}><img src={location.pathname.startsWith("/search")  ? searchIconSelected : searchIcon } alt="Profil" style={styles.icon} /></Link>
     </nav>

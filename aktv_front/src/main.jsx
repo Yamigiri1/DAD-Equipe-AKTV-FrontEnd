@@ -19,11 +19,11 @@ const router = createBrowserRouter([
       {path: '/comments/:id', element: <Comments />},
       {path: '/search', element: <div>Search Page</div>},
       {path: '/profile/:userId', element: <Profile />},
+      {path: '/profile', element: <Profile />},
       {path: '/notifications', element: <div>Notifications Page</div>},
       {path : '/messages', element: <div>Messages Page</div>},
       {path: '/settings', element: <div>Settings Page</div>},
-      {path: 'feed', element: <div>Feed Page</div>},
-      {path: 'my-profile',element: <div>My Profile Page</div>,}
+      {path: 'feed', element: <div>Feed Page</div>}
     ]
   },
 ]);

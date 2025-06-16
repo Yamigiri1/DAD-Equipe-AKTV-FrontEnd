@@ -6,28 +6,56 @@ import HeaderProfile from '../../components/Profile/HeaderProfile';
 import appLogo from "../../assets/icons/app_logo.png";
 import banner from "../../assets/img/banner.png";
 import './Profile.css'; 
+import userService from "../../services/UserService";
 
 export default function Profile() {
-    const { userId } = useParams();
-    // State to hold profile data
+    const { username } = useParams();
+    console.log("Username from params:", username);
+
+    //pavid api : http://localhost:3000/api/users/getUserByUsername/${username}
+
+    // if user === ""
+    //     /vid api : http://localhost:3000/api/users/currentuser
+
+    // State to hold profile data   
     const [profileData, setProfileData] = useState([]);
-    useEffect(() =>{
-        //requete api avec userId pour récupérer les infos du profil
+    useEffect(() => {
         document.title = "Profile - AKTV";
         window.scrollTo(0, 0);
-        // Simulate fetching user data
-        // In a real application, you would replace this with an API call
-        console.log(`Fetching profile data for user ID: ${userId}`);
-        setProfileData({
-            userId: userId,
-            name: "John Doe",
-            bio: "This is a sample bio.",
-            avatar: appLogo, // Placeholder image
-            banner: banner, // Placeholder banner image
-            followers: 120,
-            following: 80,
-        });
-    }, [])
+
+        const fetchProfile = async () => {
+            try {
+                let user;
+
+                if (!username || username.trim() === "") {
+                    // Récupérer l'utilisateur courant
+                    user = await userService.getCurrentUser();
+                } else {
+                    // Récupérer un utilisateur par son username
+                    user = await userService.getUserByUsername(username);
+                }
+
+                setProfileData({
+                    username: user.username,
+                    name: user.name || user.username, // fallback
+                    bio: user.bio || "",
+                    avatar: appLogo,
+                    banner: banner,
+                    followers: user.followers?.length || 0,
+                    following: user.following?.length || 0,
+                });
+
+            } catch (err) {
+                setError("Impossible de charger le profil.");
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, [username]);
+    
     return(
         <div className="profile">
             <HeaderProfile
