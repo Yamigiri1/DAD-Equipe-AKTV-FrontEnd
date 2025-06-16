@@ -14,11 +14,6 @@ export default function Profile() {
     const [error, setError] = useState("");
     console.log("Username from params:", username);
 
-    //pavid api : http://localhost:3000/api/users/getUserByUsername/${username}
-
-    // if user === ""
-    //     /vid api : http://localhost:3000/api/users/currentuser
-
     // State to hold profile data   
     const [profileData, setProfileData] = useState([]);
     useEffect(() => {
@@ -61,7 +56,7 @@ export default function Profile() {
     return(
         <div className="profile">
             <HeaderProfile
-            name={profileData.name}
+            username={profileData.username}
             bio={profileData.bio}
             avatar={profileData.avatar}
             banner={profileData.banner}
