@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class PostService {
   
-  API_BASE_URL = 'https://localhost'; // Remplacez par l'URL de votre API
+  API_BASE_URL = 'http://localhost'; // Remplacez par l'URL de votre API
   
   // Récupérer tous les posts
   async getAllPosts() {
