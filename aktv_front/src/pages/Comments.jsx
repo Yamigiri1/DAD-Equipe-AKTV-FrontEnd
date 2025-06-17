@@ -12,8 +12,23 @@ export default function Comments()
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [newComment, setNewComment] = useState("");
+    const [shoudReloadComments, setShoudReloadComments] = useState(true);
 
 
+       useEffect(() => {
+      const fetchData = async () => {
+        try {
+          if(shoudReloadComments){
+            const commentsData = await PostService.getCommentsByPostId(id);
+            setComments(commentsData);
+            setShoudReloadComments(false);
+          }
+        } catch (error) {
+          console.error("Erreur lors du chargementdes commentaires", error);
+        }
+      };
+      fetchData();
+    }, [shoudReloadComments]);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -52,8 +67,8 @@ export default function Comments()
       image={post.image}
       timestamp={post.created_at}
       nbLikes={post.nbLikes}
-      nbComments={post.nbComments}
-    
+      isResponseAvailable={true}
+      UpdateComments={setShoudReloadComments}
     />
   </div>
 )}

@@ -18,6 +18,7 @@ class PostService {
 
   // Créer un nouveau post
   async createPost(postData) {
+    console.log(postData)
     try {
       const response = await axios.post(`${this.API_BASE_URL}/posts`, postData, { withCredentials: true });
       return response.data;

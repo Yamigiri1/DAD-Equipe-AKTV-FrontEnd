@@ -6,18 +6,39 @@ import likeLogo from "../../assets/icons/like.png";
 import { Link } from "react-router-dom";
 import "./ResponsePopup.css";
 import PostService from "../../services/PostService";
+import { useEffect } from "react";
 
-export default function ResponsePopup({ isOpen, onClose }) {
+export default function ResponsePopup({ isOpen, onClose, postId }) {
   // This component is used to create a new post as a modal popup.
   const [postContent, setPostContent] = React.useState("");
   const [remainingChars, setRemainingChars] = React.useState(280);
 
-  function handleSubmitResponse(content) {
+    useEffect(() => {
+    if (isOpen) {
+      window.scrollTo(0, 0);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Nettoyage quand le composant est démonté
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
+  function handleSubmitResponse(content, postId) {
     // Handle post submission logic here
     console.log("Post submitted:", content);
-    setPostContent("");
-    setRemainingChars(280);
-    onClose(); // Close modal after submission
+    console.log(postId)
+    PostService.createPost({'parent_content_id' : postId, 'content' : content}).then(
+      () =>{
+          setPostContent("");
+          setRemainingChars(280);
+          onClose(); // Close modal after submission
+      }).catch((err) => {
+        console.log("Une erreur est survenue : ", err);
+      });
   }
 
   function handleTextareaChange(event) {
@@ -94,7 +115,7 @@ export default function ResponsePopup({ isOpen, onClose }) {
               className="publish-btn"
               disabled={postContent.trim().length === 0 || remainingChars < 0}
               onClick={() => {
-                handleSubmitResponse(postContent);
+                handleSubmitResponse(postContent, postId);
               }}
             >
               Publier

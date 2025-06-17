@@ -6,17 +6,12 @@ import "./Comment.css"
 import LikeButton from "../Like/Like.jsx";
 import { useState } from "react";
 import {formatTimestamp} from "../../utils.js"; // Assuming you have a utility function to format timestamps
+import ResponsePopup from "../ResponsePopup/ResponsePopup.jsx";
 
-function handleDeployResponse(isResponseVisible, setIsResponseVisible) 
-{
-  return () => {
-    // <ResponsePopup isOpen={isResponseVisible} />
-    // setIsResponseVisible(!isResponseVisible);
-  };
-}
 
 export default function Comment({ id, username, content, timestamp, nbLikes, response, isResponse }) {
-  const [isResponseVisible, setIsResponseVisible] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
     <div className="comment">
       <div className="header">
@@ -29,13 +24,14 @@ export default function Comment({ id, username, content, timestamp, nbLikes, res
       <div className="content">{content}</div>
       <div className="actions">
         <LikeButton postId={id} />
-        <button className="action">
-          {response || isResponse ? <></> : 
-          <>
-            <img src={commentLogo} alt="comment" className="actionButton" />
-            <span>Répondre</span>
-          </>}
-        </button>
+        <button className="action" onClick={() => setIsPopupOpen(true)}>
+  {!response && !isResponse && (
+    <>
+      <img src={commentLogo} alt="comment" className="actionButton" />
+      <span>Répondre</span>
+    </>
+  )}
+</button>
       </div>
         {response && (
           <>
@@ -49,11 +45,16 @@ export default function Comment({ id, username, content, timestamp, nbLikes, res
                   username={response.username}
                   timestamp={response.timestamp}
                   nbLikes={response.nbLikes} 
-                  isResponse={true} />
+                  isResponseAvailable={true} />
                 </div>
               )}
           </>
         )}
+      <ResponsePopup
+      isOpen={isPopupOpen}
+      postId={id}
+      onClose={() => setIsPopupOpen(false)}
+    />
     </div>
   );
 }
