@@ -4,88 +4,31 @@ import { Link } from "react-router-dom";
 import Comment from "../components/Comment/Comment.jsx";
 import { useParams } from "react-router-dom";
 import arrowReturnLogo from "../assets/icons/arrow_return.png";
+import PostService from "../services/PostService.js";
 
 export default function Comments() 
 {
     const [comments, setComments] = useState([]);
     const { id } = useParams();
+    const [post, setPost] = useState(null);
+    const [newComment, setNewComment] = useState("");
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const post = await PostService.getPostById(id);
+          const commentsData = await PostService.getCommentsByPostId(id);
 
-    useEffect(() => {   
-        document.title = "Comments - AKTV";
-        window.scrollTo(0, 0);
-        setComments([{
-        id: 1,
-        username: "comments alice42",
-        avatar: "https://i.pravatar.cc/40?img=1",
-        content: "J'adore coder en React ⚛️ !",
-        image: "https://picsum.photos/seed/react/400/200",
-        timestamp: "il y a 1 heure",
-        nbLikes: 120,
-        nbComments: 45,
-    },
-    {
-        id: 2,
-        username: "comments bob_dev",
-        avatar: "https://i.pravatar.cc/40?img=5",
-        content: "Premier test avec Vite, c’est ultra rapide ! 🚀",
-        response: 
-        {
-                id: 1,
-                username: "comments alice42",
-                avatar: "https://i.pravatar.cc/40?img=1",
-                content: "J'adore coder en React ⚛️ !",
-                image: "https://picsum.photos/seed/react/400/200",
-                timestamp: "il y a 1 heure",
-                nbLikes: 120,
-                nbComments: 45
-        },
-        image: "https://picsum.photos/seed/vite/400/200",
-        timestamp: "il y a 3 heures",
-        nbLikes: 85,
-        nbComments: 20,
-    },
-    {
-        id: 3,
-        username: "comments charlie_code",
-        avatar: "https://i.pravatar.cc/40?img=7",
-        content: "Quel est votre framework front préféré ? 🤔",
-        response: 
-        {
-          id: 4,
-          username: "comments david_tech",
-          avatar: "https://i.pravatar.cc/40?img=3",
-          content: "J’ai découvert une nouvelle librairie JS géniale !",
-          image: "https://picsum.photos/seed/js/400/200",
-          timestamp: "il y a 2 jours",
-          nbLikes: 200,
-          nbComments: 75,
-        },
-        image: null,
-        timestamp: "il y a 5 minutes",
-        nbLikes: 60,
-        nbComments: 10,
-    },
-    {
-        id: 4,
-        username: "comments david_tech",
-        avatar: "https://i.pravatar.cc/40?img=3",
-        content: "J’ai découvert une nouvelle librairie JS géniale !",
-        image: "https://picsum.photos/seed/js/400/200",
-        timestamp: "il y a 2 jours",
-        nbLikes: 200,
-        nbComments: 75,
-    },
-    {
-        id: 5,
-        username: "comments eve_design",
-        avatar: "https://i.pravatar.cc/40?img=9",
-        content: "Le design est aussi important que le code ! 🎨",
-        image: null,
-        timestamp: "il y a 1 jour",
-        nbLikes: 150,
-        nbComments: 30,
-    }]);
-    }, []);
+          setPost(post);
+          setComments(commentsData);
+        } catch (error) {
+          console.error("Erreur lors du chargement du post et des commentaires", error);
+        }
+      };
+
+      document.title = "Comments - AKTV";
+      window.scrollTo(0, 0);
+      fetchData();
+}, [id]);
 
   return (
     <div style={styles.feedContainer}>
@@ -96,29 +39,34 @@ export default function Comments()
         <h1 style={styles.feedTitle}>Comments</h1>
     </div>
     <div style={styles.Post}>
-        <Post
-          username="Post alice42"
-          avatar="https://i.pravatar.cc/40?img=1"
-          content="J'adore coder en React ⚛️ !"
-          image="https://picsum.photos/seed/react/400/200"
-          timestamp="il y a 1 heure"
-          id={id}
-          nbLikes={120}
-          nbComments={45}
-        />
+        {post && (
+  <div style={styles.Post}>
+    <Post
+      id={post.id}
+      username={post.username}
+      avatar={post.avatar}
+      content={post.content}
+      image={post.image}
+      timestamp={post.created_at}
+      nbLikes={post.nbLikes}
+      nbComments={post.nbComments}
+    
+    />
+  </div>
+)}
     </div>
       <div style={styles.feedComments}>
         {
-        comments.map((post) => (
+        comments.map((comment) => (
           <Comment
-            key={post.id}
-            username={post.username}
-            avatar={post.avatar}
-            content={post.content}
-            image={post.image}
-            timestamp={post.timestamp}
-            nbLikes={post.nbLikes}
-            response = {post.response}
+            key={comment.id}
+            id={comment.id}
+            username={comment.username}
+            avatar={comment.avatar}
+            content={comment.content}
+            image={comment.image}
+            timestamp={comment.timestamp}
+            response = {comment.response}
           />
         ))}
       </div>
