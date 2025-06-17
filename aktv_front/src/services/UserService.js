@@ -37,17 +37,6 @@ class UserService {
     }
   }
 
-  // Créer un utilisateur
-  async createUser(userData) {
-    try {
-      const response = await axios.post(`${this.API_BASE_URL}/users`, userData, { withCredentials: true });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la création de l\'utilisateur :', error);
-      throw error;
-    }
-  }
-
   // Modifier un utilisateur
   async updateUser(username, updateData) {
     try {
@@ -55,17 +44,6 @@ class UserService {
       return response.data;
     } catch (error) {
       console.error(`Erreur lors de la mise à jour de l'utilisateur ${username} :`, error);
-      throw error;
-    }
-  }
-
-  // Supprimer un utilisateur
-  async deleteUser(username) {
-    try {
-      const response = await axios.delete(`${this.API_BASE_URL}/users/${username}`, { withCredentials: true });
-      return response.data;
-    } catch (error) {
-      console.error(`Erreur lors de la suppression de l'utilisateur ${username} :`, error);
       throw error;
     }
   }
