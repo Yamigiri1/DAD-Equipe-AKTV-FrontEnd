@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import appLogo from "../../assets/icons/app_logo.png";
 import "./HeaderProfile.css";
 import socialService from "../../services/SocialService";
+import userService from "../../services/UserService";
 import {useEffect} from "react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -87,6 +88,21 @@ export default function HeaderProfile({ username, bio, avatar, banner, followers
     window.location.href = "/auth"; // redirige vers la page d'authentification
   };
 
+  const [showBioModal, setShowBioModal] = React.useState(false);
+  const [newBio, setNewBio] = React.useState(bio || "");
+
+  const handleUpdateBio = async () => {
+    try {
+      // Appel au userService pour mettre à jour la bio
+      await userService.updateCurrentUserBio(newBio);
+      setShowBioModal(false);
+      window.location.reload(); // recharge la page pour refléter les changements
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la bio :", error);
+    }
+  };
+
+
   return (
     <div className="header-profile-container">
       <div className="header-banner">
@@ -105,6 +121,7 @@ export default function HeaderProfile({ username, bio, avatar, banner, followers
               {showMenu && (
                   <div className="dropdown-menu">
                     <button onClick={handleLogout}>Se déconnecter</button>
+                    <button onClick={() => setShowBioModal(true)}>Modifier la bio</button>
                   </div>
               )}
             </div>
@@ -141,6 +158,19 @@ export default function HeaderProfile({ username, bio, avatar, banner, followers
           </span>
         </div>
       </div>
+      <dialog open={showBioModal} className="bio-dialog">
+        <h3>Modifier votre bio</h3>
+        <textarea
+          value={newBio}
+          onChange={(e) => setNewBio(e.target.value)}
+          rows="4"
+          style={{ width: "100%", marginTop: "10px" }}
+        />
+        <div style={{ marginTop: "15px", display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+          <button onClick={handleUpdateBio}>Valider</button>
+          <button onClick={() => setShowBioModal(false)}>Annuler</button>
+        </div>
+      </dialog>
     </div>
   );
 }

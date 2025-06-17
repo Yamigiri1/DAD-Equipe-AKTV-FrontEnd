@@ -59,6 +59,17 @@ class UserService {
     }
   }
 
+  // Modifier la bio de l'utilisateur courant
+  async updateCurrentUserBio(bio) {
+    try {
+      const response = await axios.put(`${this.API_BASE_URL}/users`, { bio }, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      console.error(`Erreur lors de la mise à jour de la bio de l'utilisateur courant :`, error);
+      throw error;
+    }
+  }
+
   // Supprimer un utilisateur
   async deleteUser(username) {
     try {
