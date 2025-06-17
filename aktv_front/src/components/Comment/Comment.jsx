@@ -3,17 +3,19 @@ import appLogo from "../../assets/icons/app_logo.png";
 import commentLogo from "../../assets/icons/comment.png";
 import likeLogo from "../../assets/icons/like.png";
 import "./Comment.css"
+import LikeButton from "../Like/Like.jsx";
 import { useState } from "react";
 import {formatTimestamp} from "../../utils.js"; // Assuming you have a utility function to format timestamps
 
 function handleDeployResponse(isResponseVisible, setIsResponseVisible) 
 {
   return () => {
-    setIsResponseVisible(!isResponseVisible);
+    // <ResponsePopup isOpen={isResponseVisible} />
+    // setIsResponseVisible(!isResponseVisible);
   };
 }
 
-export default function Comment({ username, content, timestamp, nbLikes, response, isResponse }) {
+export default function Comment({ id, username, content, timestamp, nbLikes, response, isResponse }) {
   const [isResponseVisible, setIsResponseVisible] = useState(false);
   return (
     <div className="comment">
@@ -26,10 +28,7 @@ export default function Comment({ username, content, timestamp, nbLikes, respons
       </div>
       <div className="content">{content}</div>
       <div className="actions">
-        <button className="action">
-          <img src={likeLogo} alt="like" className="actionButton" />
-          <span>{nbLikes}</span>
-        </button>
+        <LikeButton postId={id} />
         <button className="action">
           {response || isResponse ? <></> : 
           <>

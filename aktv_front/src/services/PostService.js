@@ -8,7 +8,7 @@ class PostService {
   // Récupérer tous les posts
   async getAllPosts() {
     try {
-      const response = await axios.get(`${this.API_BASE_URL}/posts`);
+      const response = await axios.get(`${this.API_BASE_URL}/posts`, { withCredentials: true });
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération des posts:', error);
@@ -19,7 +19,7 @@ class PostService {
   // Créer un nouveau post
   async createPost(postData) {
     try {
-      const response = await axios.post(`${this.API_BASE_URL}/posts`, postData);
+      const response = await axios.post(`${this.API_BASE_URL}/posts`, postData, { withCredentials: true });
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la création du post:', error);
@@ -30,7 +30,7 @@ class PostService {
   // Récupérer un post par ID
   async getPostById(id) {
     try {
-      const response = await axios.get(`${this.API_BASE_URL}/posts/${id}`);
+      const response = await axios.get(`${this.API_BASE_URL}/posts/${id}`, { withCredentials: true });
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la récupération du post:', error);
@@ -41,7 +41,7 @@ class PostService {
   // Mettre à jour un post
   async updatePost(id, postData) {
     try {
-      const response = await axios.put(`${this.API_BASE_URL}/posts/${id}`, postData);
+      const response = await axios.put(`${this.API_BASE_URL}/posts/${id}`, postData, { withCredentials: true });
       return response.data;
     } catch (error) {
       console.error('Erreur lors de la mise à jour du post:', error);
@@ -52,10 +52,32 @@ class PostService {
   // Supprimer un post
   async deletePost(id) {
     try {
-      await axios.delete(`${this.API_BASE_URL}/posts/${id}`);
+      await axios.delete(`${this.API_BASE_URL}/posts/${id}`, { withCredentials: true });
       return true;
     } catch (error) {
       console.error('Erreur lors de la suppression du post:', error);
+      throw error;
+    }
+  }
+
+  //Récupérer tous les commentaires d'un posts
+  async getAllCommentsByPostId(id) {
+    try {
+      const response=await axios.get(`${this.API_BASE_URL}/posts/comments/${id}`, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de recupération des commentaires:', error);
+      throw error;
+    }
+  }
+
+  // Récupérer tous les commentaires et sous commentaires d'un post
+  async getCommentsByPostId(id) {
+    try {
+      const response=await axios.get(`${this.API_BASE_URL}/posts/comments/${id}`, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération du commentaire:', error);
       throw error;
     }
   }

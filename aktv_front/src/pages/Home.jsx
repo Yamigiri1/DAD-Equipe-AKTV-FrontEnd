@@ -5,15 +5,19 @@ import PostService from "../services/PostService.js";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+  const [commentCount, setCommentCount] = useState(0);
+
   useEffect(() => {
+    document.title = "AKTV - Feed";
+    window.scrollTo(0, 0);
+    //récupérer tous les posts
     PostService.getAllPosts().then((data) => {
       setPosts(data);
       // setPosts(data); // Uncomment this line to use real data from the API
     }).catch((error) => {
       console.error("Erreur lors de la récupération des posts:", error);
     });
-    document.title = "AKTV - Feed";
-    window.scrollTo(0, 0);
+    
   }, []);
   return (
     <div style={styles.feedContainer}>
@@ -32,8 +36,7 @@ export default function Home() {
             content={post.content}
             image={"factice"}//post.image
             timestamp={post.created_at}
-            nbLikes={10}//post.nbLikes
-            nbComments={10}//post.nbComments
+            nbComments={post.comment_count}//post.nbComments
           />
         ))}
       </div>
