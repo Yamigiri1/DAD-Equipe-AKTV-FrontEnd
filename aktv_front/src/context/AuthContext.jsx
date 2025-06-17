@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import AuthService from "../services/AuthService";
 
 const AuthContext = createContext();
 
@@ -9,8 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const res = await axios.post("http://localhost/auth/login", credentials, { withCredentials: true }
-      );
+      const res = await AuthService.loginUser(credentials);
 
       console.log(res.data);
 
@@ -23,18 +22,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    try{
-      await axios.post("http://localhost/auth/logout", null, { withCredentials : true });
-      setUser(null);  
-    } catch(err) {
+    try {
+      await AuthService.logoutUser();
+      setUser(null);
+    } catch (err) {
       console.error("Logout failed :", err);
     }
   };
 
   const fetchCurrentUser = async () => {
     try {
-      const res = await axios.get("http://localhost/auth/currentuser", { withCredentials: true });
-      setUser(res.data)
+      const res = await AuthService.getUser();
+      setUser(res)
     } catch (err) {
       console.error("Token invalide :", err);
       setUser(null);

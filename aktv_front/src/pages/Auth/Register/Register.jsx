@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import AuthService from "../../../services/AuthService";
 import "./Register.css";
 
 const Register = () => {
@@ -10,7 +10,6 @@ const Register = () => {
   const [confirmation, setConfirmation] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -26,10 +25,7 @@ const Register = () => {
 
 
     try {
-      const register = await axios.post("http://localhost/auth/register", {
-        username,
-        password,
-      });
+      await AuthService.createUser({ username, password });
 
       try {
         const success = await login({ username, password });
