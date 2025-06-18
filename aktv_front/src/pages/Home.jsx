@@ -37,6 +37,7 @@ export default function Home() {
             image={"factice"}//post.image
             timestamp={post.created_at}
             nbComments={post.comment_count}//post.nbComments
+            isResponseAvailable={false}
           />
         ))}
       </div>
