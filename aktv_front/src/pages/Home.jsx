@@ -11,8 +11,8 @@ export default function Home() {
     document.title = "AKTV - Feed";
     window.scrollTo(0, 0);
     //récupérer tous les posts
-    PostService.getAllPosts().then((data) => {
-      setPosts(data);
+    PostService.getFeedPosts().then((data) => {
+      setPosts(data.posts);
       // setPosts(data); // Uncomment this line to use real data from the API
     }).catch((error) => {
       console.error("Erreur lors de la récupération des posts:", error);

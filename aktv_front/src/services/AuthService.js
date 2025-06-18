@@ -26,8 +26,6 @@ class AuthService {
       throw error;
     }
   }
-
-
 }
 
 export default new AuthService();

@@ -81,6 +81,20 @@ class PostService {
       throw error;
     }
   }
+
+  // Récupérer le fil d'actualité d'un utilisateur
+  async getFeedPosts() {
+    try {
+      const response=await axios.get(`${this.API_BASE_URL}/posts/feed`, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération du fil d\'actualité:', error);
+      throw error;
+    }
+  }
+
 }
+
+
 
 export default new PostService();
