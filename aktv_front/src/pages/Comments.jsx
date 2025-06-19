@@ -83,7 +83,7 @@ export default function Comments()
             avatar={comment.avatar}
             content={comment.content}
             image={comment.image}
-            timestamp={comment.timestamp}
+            timestamp={comment.created_at}
             response = {comment.response}
           />
         ))}

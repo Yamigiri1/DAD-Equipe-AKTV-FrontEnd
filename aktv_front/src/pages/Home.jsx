@@ -12,6 +12,7 @@ export default function Home() {
     window.scrollTo(0, 0);
     //récupérer tous les posts
     PostService.getFeedPosts().then((data) => {
+      console.log("Posts récupérés:", data);
       setPosts(data.posts);
       // setPosts(data); // Uncomment this line to use real data from the API
     }).catch((error) => {
@@ -31,7 +32,7 @@ export default function Home() {
           <Post
             key={post.id}
             id={post.id}
-            username={"factice"}//post.username
+            username={post.author_username}//post.username
             avatar={"factice"}//post.avatar
             content={post.content}
             image={"factice"}//post.image
