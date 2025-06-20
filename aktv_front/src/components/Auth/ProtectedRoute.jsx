@@ -1,12 +1,20 @@
 import { useAuth } from "../../context/AuthContext";
 import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
+const ProtectedRoute = ({ children, requiredRole }) => {
+  const { user, role, loading } = useAuth();
 
-    if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
 
-  return user ? children : <Navigate to="/auth" replace />;
+  if (!user || role === null) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (requiredRole !== undefined && role !== requiredRole) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return children
 };
 
 export default ProtectedRoute;

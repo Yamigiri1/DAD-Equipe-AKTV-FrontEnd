@@ -59,21 +59,28 @@ export default function Profile() {
         fetchProfile();
     }, [username]);
 
+    if (loading) {
+        return <div className="profile-loading">Chargement du profil...</div>;
+    }
+
+    if (error) {
+        return <div className="profile-error">{error}</div>;
+    }
+
     return (
         <div className="profile">
-    <HeaderProfile
-        username={profileData.username}
-        bio={profileData.bio}
-        avatar={profileData.avatar}
-        banner={profileData.banner}
-        followers={profileData.followers}
-        following={profileData.following}
-    />
-
-    <div className="profile-post">
-        <Posts isAccount={true}/>
-    </div>
-</div>
-
+            <HeaderProfile
+            username={profileData.username}
+            bio={profileData.bio}
+            avatar={profileData.avatar}
+            banner={profileData.banner}
+            followers={profileData.followers}
+            following={profileData.following} 
+            />
+                
+        <div className="profile-post">
+            <Posts isAccount={true}/>
+        </div>
+        </div>
     );
 }

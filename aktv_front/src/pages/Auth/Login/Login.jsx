@@ -33,7 +33,7 @@ const Login = () => {
       <div className="login-card">
         <h1 className="login-title">Connexion</h1>
         <p className="login-description">
-          Entrez votre <strong>nom d'utilisateur</strong> et votre <strong>mot de passe</strong>.
+          Entrez votre <strong>nom d'utilisateur</strong> et votre <strong>mot de passe</strong> :
         </p>
 
         <form onSubmit={handleLogin} className="login-form">

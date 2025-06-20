@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
       return true;
     } catch (err) {
       console.error("Login failed :", err)
+      return false;
     };
   };
 
@@ -33,16 +34,17 @@ export const AuthProvider = ({ children }) => {
   const fetchCurrentUser = async () => {
     try {
       const res = await AuthService.getUser();
-      setUser(res)
+      setUser(res);
     } catch (err) {
-      console.error("Token invalide :", err);
+      console.error("Token invalide :", err.error);
       setUser(null);
     } finally {
       setLoading(false);
     }
   };
 
-  // Vérifie le token dès le montage
+
+  // Verifies token for every request
   useEffect(() => {
     fetchCurrentUser();
   }, []);

@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Authentication.css";
+import aktv_logo from "../../../assets/icons/aktv_logo.png"
 
 const Authentication = () => {
   const navigate = useNavigate();
@@ -8,7 +9,8 @@ const Authentication = () => {
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1 className="auth-title">Bienvenue sur <span className="highlight">AKTV</span> 🐦</h1>
+        <img src={aktv_logo} alt="AKTV Logo" className="auth-logo" />
+        <h1 className="auth-title">Bienvenue sur <span className="highlight">AKTV</span></h1>
         <p className="auth-description">
           Connecte-toi ou crée un compte pour accéder à ton fil d'actualités.
         </p>

@@ -58,7 +58,7 @@ const Register = () => {
     <div className="register-container">
       <div className="register-card">
         <h1 className="register-title">Inscription</h1>
-        <p className="register-description">Créez votre compte AKTV 🐦</p>
+        <p className="register-description">Créez votre <strong>compte AKTV</strong> :</p>
 
         <form onSubmit={handleRegister} className="register-form">
           <input
