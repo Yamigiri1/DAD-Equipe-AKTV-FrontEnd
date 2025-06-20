@@ -3,45 +3,58 @@ import Post from "./Post.jsx";
 import CreatePost from "./CreatePost.jsx";
 import PostService from "../../services/PostService.js";
 
-export default function Posts({isAccount=false}) {
+export default function Posts({username=undefined}) {
   const [posts, setPosts] = useState([]);
   const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
-    if(isAccount){
-    console.log("regis : ", user.username);
-    PostService.getPostByUsername(user.username)
+  let isMounted = true; // Flag de contrôle
+  const fetchedPosts = [];
+
+  if (username !== undefined) {
+    PostService.getPostByUsername(username)
       .then((data) => {
-          // Vérifie si data.posts existe
-          if (data.posts && data.posts.length > 0) {
-              data.posts.forEach((postId) => {
-                  PostService.getPostById(postId)
-                      .then((postDetails) => {
-                          setPosts(prevPosts => [...prevPosts, postDetails]);
-                      })
-                      .catch((err) => {
-                          console.error(`Erreur lors du chargement du post ${postId}:`, err);
-                      });
-              });
-          } else {
-              setPosts([]); // aucun post
-          }
+        console.log("data : ", data);
+        if (data.posts && data.posts.length > 0) {
+          Promise.all(
+            data.posts.map((postId) =>
+              PostService.getPostById(postId)
+                .then((postDetails) => {
+                  if (isMounted) {
+                    fetchedPosts.push(postDetails);
+                  }
+                })
+                .catch((err) => {
+                  console.error(`Erreur lors du chargement du post ${postId}:`, err);
+                })
+            )
+          ).then(() => {
+            if (isMounted) {
+              setPosts(fetchedPosts); // un seul set, une fois tous les posts prêts
+            }
+          });
+        } else {
+          if (isMounted) setPosts([]);
+        }
       })
       .catch((err) => {
-          console.error("Erreur lors de la récupération des posts:", err);
+        console.error("Erreur lors de la récupération des posts:", err);
       });
-    }
-    else{
-      //récupérer tous les posts
-      PostService.getFeedPosts().then((data) => {
-        setPosts(data.posts);
-        // setPosts(data); // Uncomment this line to use real data from the API
-      }).catch((error) => {
+  } else {
+    PostService.getFeedPosts()
+      .then((data) => {
+        if (isMounted) setPosts(data.posts);
+      })
+      .catch((error) => {
         console.error("Erreur lors de la récupération des posts:", error);
       });
-    }
-    
-  }, []);
+  }
+
+  return () => {
+    isMounted = false; // Nettoyage
+  };
+}, [username]);
+
   return (
 
       <div style={styles.feedPosts}>

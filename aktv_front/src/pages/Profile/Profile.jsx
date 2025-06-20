@@ -79,7 +79,7 @@ export default function Profile() {
             />
                 
         <div className="profile-post">
-            <Posts isAccount={true}/>
+            <Posts username={profileData.username}/>
         </div>
         </div>
     );
