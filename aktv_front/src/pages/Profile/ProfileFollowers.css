@@ -1,0 +1,45 @@
+.followers-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.followers-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+.follower-item {
+  text-align: left; /* assure l'alignement gauche de tout l'item */
+  padding: 15px 0;
+  border-bottom: 1px solid #444;
+}
+
+.follower-username {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4fc3f7;
+  text-align: left; /* facultatif si le parent est déjà en align-left */
+}
+
+.follower-item:last-child {
+  border-bottom: none;
+}
+
+.follower-bio {
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 4px;
+}
+.follower-item:hover {
+  background-color: #2c2c2c;
+  transition: background-color 0.2s ease;
+}

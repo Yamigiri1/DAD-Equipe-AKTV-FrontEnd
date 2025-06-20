@@ -5,12 +5,15 @@ import socialService from "../../services/SocialService";
 import userService from "../../services/UserService";
 import {useEffect} from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function HeaderProfile({ username, bio, avatar, banner, followers, following, joinedDate }) {
 
 
   const [isFollowing, setIsFollowing] = React.useState(false);
-        const [followersCount, setFollowersCount] = React.useState(0);
+  const [followersCount, setFollowersCount] = React.useState(0);
+  const navigate = useNavigate();
+
   useEffect(() => {
     setFollowersCount(followers || 0);
   }, [followers]);
@@ -147,12 +150,16 @@ export default function HeaderProfile({ username, bio, avatar, banner, followers
           <span 
             className="profile-following" 
             data-count={following || 0}
+            style={{ cursor: "pointer", textDecoration: "underline" }}
+            onClick={() => navigate(`/profile/${username}/following`)}
           >
             abonnements
           </span>
           <span 
             className="profile-followers" 
             data-count={followersCount || 0}
+            style={{ cursor: "pointer", textDecoration: "underline" }}
+            onClick={() => navigate(`/profile/${username}/followers`)}
           >
             abonnés
           </span>
