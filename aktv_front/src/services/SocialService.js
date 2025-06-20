@@ -1,7 +1,7 @@
 // services/socialService.js
 import axios from 'axios';
 
-class SocialService {
+class SocialService { 
   API_BASE_URL = 'http://localhost'; // Remplace si nécessaire (ex: http://localhost:5000)
 
   // Suivre un utilisateur
@@ -51,27 +51,27 @@ class SocialService {
     }
   }
 
-  // Obtenir les followers de l'utilisateur courant
-  async getFollowers() {
+  async getFollowers (username) {
     try {
-      const response = await axios.get(`${this.API_BASE_URL}/social/followers`, 
-        { withCredentials: true});
-      return response.data;
+      const response = await axios.get(`${this.API_BASE_URL}/social/followers/${username}`, 
+        { withCredentials: true }
+      );
+      return response.data.followers;
     } catch (error) {
-      console.error('Erreur lors de la récupération des followers :', error);
+      console.error(`Erreur lors de la récupération des followers :`, error);
       throw error;
     }
   }
 
   // Obtenir les utilisateurs suivis par l'utilisateur courant
-  async getFollowing() {
+  async getFollowing(username) {
     try {
-      const response = await axios.get(`${this.API_BASE_URL}/social/following`, {
-        withCredentials: true
-      });
-      return response.data;
+      const response = await axios.get(`${this.API_BASE_URL}/social/followings/${username}`, 
+        { withCredentials: true }
+      );
+      return response.data.following;
     } catch (error) {
-      console.error('Erreur lors de la récupération des following :', error);
+      console.error(`Erreur lors de la récupération des following :`, error);
       throw error;
     }
   }
