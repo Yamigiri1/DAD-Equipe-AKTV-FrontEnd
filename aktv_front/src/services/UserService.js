@@ -37,17 +37,6 @@ class UserService {
     }
   }
 
-  // Créer un utilisateur
-  async createUser(userData) {
-    try {
-      const response = await axios.post(`${this.API_BASE_URL}/users`, userData, { withCredentials: true });
-      return response.data;
-    } catch (error) {
-      console.error('Erreur lors de la création de l\'utilisateur :', error);
-      throw error;
-    }
-  }
-
   // Modifier un utilisateur
   async updateUser(username, updateData) {
     try {
@@ -69,7 +58,6 @@ class UserService {
       throw error;
     }
   }
-
   // Supprimer un utilisateur
   async deleteUser(username) {
     try {
@@ -80,7 +68,6 @@ class UserService {
       throw error;
     }
   }
-
   // Rechercher des utilisateurs
   async searchUsers(query, limit = 20) {
     try {

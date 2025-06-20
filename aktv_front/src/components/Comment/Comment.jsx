@@ -3,18 +3,15 @@ import appLogo from "../../assets/icons/app_logo.png";
 import commentLogo from "../../assets/icons/comment.png";
 import likeLogo from "../../assets/icons/like.png";
 import "./Comment.css"
+import LikeButton from "../Like/Like.jsx";
 import { useState } from "react";
 import {formatTimestamp} from "../../utils.js"; // Assuming you have a utility function to format timestamps
+import ResponsePopup from "../ResponsePopup/ResponsePopup.jsx";
 
-function handleDeployResponse(isResponseVisible, setIsResponseVisible) 
-{
-  return () => {
-    setIsResponseVisible(!isResponseVisible);
-  };
-}
 
-export default function Comment({ username, content, timestamp, nbLikes, response, isResponse }) {
-  const [isResponseVisible, setIsResponseVisible] = useState(false);
+export default function Comment({ id, username, content, timestamp, nbLikes, response, isResponse }) {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
   return (
     <div className="comment">
       <div className="header">
@@ -26,17 +23,15 @@ export default function Comment({ username, content, timestamp, nbLikes, respons
       </div>
       <div className="content">{content}</div>
       <div className="actions">
-        <button className="action">
-          <img src={likeLogo} alt="like" className="actionButton" />
-          <span>{nbLikes}</span>
-        </button>
-        <button className="action">
-          {response || isResponse ? <></> : 
-          <>
-            <img src={commentLogo} alt="comment" className="actionButton" />
-            <span>Répondre</span>
-          </>}
-        </button>
+        <LikeButton postId={id} />
+        <button className="action" onClick={() => setIsPopupOpen(true)}>
+  {!response && !isResponse && (
+    <>
+      <img src={commentLogo} alt="comment" className="actionButton" />
+      <span>Répondre</span>
+    </>
+  )}
+</button>
       </div>
         {response && (
           <>
@@ -50,11 +45,16 @@ export default function Comment({ username, content, timestamp, nbLikes, respons
                   username={response.username}
                   timestamp={response.timestamp}
                   nbLikes={response.nbLikes} 
-                  isResponse={true} />
+                  isResponseAvailable={true} />
                 </div>
               )}
           </>
         )}
+      <ResponsePopup
+      isOpen={isPopupOpen}
+      postId={id}
+      onClose={() => setIsPopupOpen(false)}
+    />
     </div>
   );
 }

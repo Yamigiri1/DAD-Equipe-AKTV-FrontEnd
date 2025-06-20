@@ -1,0 +1,7 @@
+.liked {
+  color: #ff6b9d;
+}
+
+.liked .post-action-button {
+  opacity: 1;
+}
