@@ -4,7 +4,7 @@ import commentLogo from "../../assets/icons/comment.png";
 import likeLogo from "../../assets/icons/like.png";
 import { Link } from "react-router-dom";
 import "./CreatePost.css";
-import PostService from "../../services/PostService";
+import UserPost from "../../services/UserPost";
 
 export default function CreatePost() 
 {
@@ -13,7 +13,7 @@ export default function CreatePost()
   const [remainingChars, setRemainingChars] = React.useState(280);
 
   function handleSubmitPost(content) {
-    PostService.createPost({'content': content})
+    UserPost.setPostsToUser(content)
     .then(() => {
         window.location.reload(); // Reload the page to show the new post
     }).catch((error) => {

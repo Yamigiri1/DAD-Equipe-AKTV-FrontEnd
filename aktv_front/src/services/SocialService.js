@@ -1,7 +1,7 @@
 // services/socialService.js
 import axios from 'axios';
 
-class SocialService {
+class SocialService { 
   API_BASE_URL = 'http://localhost'; // Remplace si nécessaire (ex: http://localhost:5000)
 
   // Suivre un utilisateur
