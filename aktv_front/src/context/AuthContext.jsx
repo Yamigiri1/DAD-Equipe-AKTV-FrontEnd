@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true); // Pour le chargement initial
 
   const login = async (credentials) => {
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
       return true;
     } catch (err) {
       console.error("Login failed :", err)
+      return false;
     };
   };
 
@@ -25,6 +27,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await AuthService.logoutUser();
       setUser(null);
+      setRole(null);
     } catch (err) {
       console.error("Logout failed :", err);
     }
@@ -33,22 +36,24 @@ export const AuthProvider = ({ children }) => {
   const fetchCurrentUser = async () => {
     try {
       const res = await AuthService.getUser();
-      setUser(res)
+      setUser(res.username);
+      setRole(res.role);
     } catch (err) {
-      console.error("Token invalide :", err);
+      console.error("Token invalide :", err.error);
       setUser(null);
+      setRole(null);
     } finally {
       setLoading(false);
     }
   };
 
-  // Vérifie le token dès le montage
+  // Verifies token for every request
   useEffect(() => {
     fetchCurrentUser();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, role, login, logout, loading }}>
       {!loading && children}
     </AuthContext.Provider>
   );
