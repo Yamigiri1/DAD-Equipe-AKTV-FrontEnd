@@ -72,3 +72,8 @@
 .auth-button.register:hover {
   background-color: #555;
 }
+
+.auth-logo {
+  width: 160px;
+  margin-bottom: 20px;
+}
