@@ -39,6 +39,17 @@ class PostService {
     }
   }
 
+  // Récupérer un post par utilisateur
+  async getPostByUsername(id) {
+    try {
+      const response = await axios.get(`${this.API_BASE_URL}/user-posts/${id}`, { withCredentials: true });
+      return response.data;
+    } catch (error) {
+      console.error('Erreur lors de la récupération du post:', error);
+      throw error;
+    }
+  }
+
   // Mettre à jour un post
   async updatePost(id, postData) {
     try {
