@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
 
   if (loading) return <div>Loading...</div>;
 
-  if (!user || !role) {
+  if (!user || role === null) {
     return <Navigate to="/auth" replace />;
   }
 
