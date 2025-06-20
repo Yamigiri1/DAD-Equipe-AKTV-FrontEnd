@@ -86,8 +86,8 @@ export default function HeaderProfile({ username, bio, avatar, banner, followers
     setShowMenu((prev) => !prev);
   };
 
-  const handleLogout = () => {
-    logout(); // Appelle la fonction de déconnexion du contexte
+  const handleLogout = async () => {
+    await logout(); // Appelle la fonction de déconnexion du contexte
     window.location.href = "/auth"; // redirige vers la page d'authentification
   };
 

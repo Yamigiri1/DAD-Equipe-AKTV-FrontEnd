@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import HeaderProfile from '../../components/Profile/HeaderProfile';
 import appLogo from "../../assets/icons/app_logo.png";
 import banner from "../../assets/img/banner.png";
-import './Profile.css'; 
+import './Profile.css';
 import userService from "../../services/UserService";
 
 export default function Profile() {
@@ -52,16 +52,24 @@ export default function Profile() {
 
         fetchProfile();
     }, [username]);
-    
-    return(
+
+    if (loading) {
+        return <div className="profile-loading">Chargement du profil...</div>;
+    }
+
+    if (error) {
+        return <div className="profile-error">{error}</div>;
+    }
+
+    return (
         <div className="profile">
             <HeaderProfile
-            username={profileData.username}
-            bio={profileData.bio}
-            avatar={profileData.avatar}
-            banner={profileData.banner}
-            followers={profileData.followers}
-            following={profileData.following} 
+                username={profileData.username}
+                bio={profileData.bio}
+                avatar={profileData.avatar}
+                banner={profileData.banner}
+                followers={profileData.followers}
+                following={profileData.following}
             />
         </div>
     );
