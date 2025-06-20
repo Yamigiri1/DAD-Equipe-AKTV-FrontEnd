@@ -2,47 +2,23 @@ import { useEffect, useState } from "react";
 import Post from "../components/Post/Post.jsx";
 import CreatePost from "../components/Post/CreatePost.jsx";
 import PostService from "../services/PostService.js";
+import Posts from '../components/Post/Posts'
 
 export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
     document.title = "AKTV - Feed";
     window.scrollTo(0, 0);
-    //récupérer tous les posts
-    PostService.getFeedPosts().then((data) => {
-      setPosts(data.posts);
-      // setPosts(data); // Uncomment this line to use real data from the API
-    }).catch((error) => {
-      console.error("Erreur lors de la récupération des posts:", error);
-    });
-    
-  }, []);
-  return (
-    <div style={styles.feedContainer}>
-          <CreatePost />
-    <div style={styles.feedHeader}>
-        <h1 style={styles.feedTitle}>Votre actualité</h1>
-    </div>
-      <div style={styles.feedPosts}>
-        {
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            id={post.id}
-            username={"factice"}//post.username
-            avatar={"factice"}//post.avatar
-            content={post.content}
-            image={"factice"}//post.image
-            timestamp={post.created_at}
-            nbComments={post.comment_count}//post.nbComments
-            isResponseAvailable={false}
-          />
-        ))}
+    }, []);
+  return (<>
+     <div style={styles.feedContainer}>
+              <CreatePost />
+        <div style={styles.feedHeader}>
+            <h1 style={styles.feedTitle}>Votre actualité</h1>
+        </div>
+        <Posts />
       </div>
-    </div>
-  );
+  </>);
 }
 
 const styles = {

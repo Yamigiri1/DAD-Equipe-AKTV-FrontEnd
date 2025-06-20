@@ -9,6 +9,7 @@ import './Profile.css';
 import userService from "../../services/UserService";
 import postService from "../../services/PostService";
 import Post from '../../components/Post/Post';
+import Posts from '../../components/Post/Posts';
 
 
 export default function Profile() {
@@ -38,14 +39,6 @@ export default function Profile() {
                     // Récupérer un utilisateur par son username
                     user = await userService.getUserByUsername(username);
                 }
-                postService.getPostByUsername(user.username).
-                then((data) => 
-                    { 
-                        console.log(data.posts)
-                        setUserPosts(data.posts) 
-
-                    })
-                .catch((error) => { console.error("Erreur lors de la récupération des posts par username"), error });
                 setProfileData({
                     username: user.username,
                     name: user.name || user.username, // fallback
@@ -77,24 +70,8 @@ export default function Profile() {
         following={profileData.following}
     />
 
-    <div className="profile-comments">
-        {userPosts.length === 0 ? (
-            <p>Aucun commentaire ou post pour le moment.</p>
-        ) : (
-            userPosts.map((post) => (
-                <Post
-                    key={post.id}
-                    id={post.id}
-                    username={post.username}
-                    content={post.content}
-                    timestamp={post.timestamp}
-                    nbLikes={post.nbLikes}
-                    nbComments={post.nbComments}
-                    isResponseAvailable={false}
-                    UpdateComments={() => {}}
-                />
-            ))
-        )}
+    <div className="profile-post">
+        <Posts isAccount={true}/>
     </div>
 </div>
 

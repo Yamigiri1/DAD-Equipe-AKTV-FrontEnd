@@ -10,9 +10,7 @@ import { formatTimestamp } from "../../utils";
 import ResponsePopup from '../ResponsePopup/ResponsePopup'
 import { useState } from "react";
 export default function Post({id, username, content, timestamp, nbLikes, nbComments, isResponseAvailable, UpdateComments}) {
-  useEffect(()=>{
-    
-  }, [])
+  useEffect(()=>{}, [])
 
   function handleClosePopupResponse()
   {
